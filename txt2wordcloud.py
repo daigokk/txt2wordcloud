@@ -142,25 +142,25 @@ class Txt2wordcloud():
         print("解析処理時間",etime)
         return dicts_sorted
 
-    def plot(self,countedwords):
+    def plot(self, countedwords, showing_words=20):
         counts = {}
         total = sum(countedwords.values())
         c = 1
-        show = 20 #何件表示する？
         for k, v in sorted(countedwords.items(), key=lambda x: x[1], reverse=True):  # 辞書を降順に入れる
             counts.update( {str(k):int(v)} )
             c += 1
-            if c > show:
+            if c > showing_words:
                break
-        fig, ax = plt.subplots(figsize=(10,5))
-        ax.bar(range(len(counts)), list(counts.values()), align='center')
-        ax.set_title(f'Best {show} in {len(countedwords)} words')
-        ax.set_xticks(range(len(counts))) 
-        ax.set_xticklabels([word[:3] for word in counts.keys()])
-        ax.set_ylabel('出現回数')
+        fig, ax = plt.subplots(figsize=(6,8))
+        ax.barh(range(len(counts)), list(counts.values()), align='center')
+        ax.set_title(f'Best {showing_words} in {len(countedwords)} words')
+        ax.invert_yaxis()
+        ax.set_yticks(range(len(counts))) 
+        ax.set_yticklabels(counts.keys())#([word[:3] for word in counts.keys()])
+        ax.set_xlabel('出現回数')
         for x, y in zip(range(len(counts)), counts.values()):
-            ax.text(x, y, y, ha='center', va='bottom') #出現回数
-            ax.text(x, y/2, f'{(y/total*100):.1f}%', ha='center', va='bottom', color='white')  #パーセンテージ
+            ax.text(y+len(counts)*0.1, x, y, ha='center', va='center') #出現回数
+            ax.text(y/2, x, f'{(y/total*100):.1f}%', ha='center', va='center', color='white')  #パーセンテージ
         
         fig.tight_layout()
         fig.savefig('barchart.png', dpi=600)
