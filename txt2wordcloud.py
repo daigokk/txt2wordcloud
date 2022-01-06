@@ -1,22 +1,6 @@
 # Special thanks!
 # - https://github.com/Sak1361/word_count/blob/master/count_word.py
 
-def install_libraries():
-    !apt-get -y install fonts-ipafont-gothic
-    !echo `mecab-config --dicdir`"/fonts-japanese-mincho.ttf"
-    !apt-get -q -y install sudo file mecab libmecab-dev mecab-ipadic-utf8 git curl python-mecab
-    !git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git
-    !echo yes | mecab-ipadic-neologd/bin/install-mecab-ipadic-neologd -n
-
-    # シンボリックリンクによるエラー回避
-    !ln -s /etc/mecabrc /usr/local/etc/mecabrc
-
-    !pip install mojimoji
-    !pip install mecab-python3
-    !pip install japanize-matplotlib
-    !pip install wordcloud
-    return
-
 import MeCab
 import re
 import urllib.request
