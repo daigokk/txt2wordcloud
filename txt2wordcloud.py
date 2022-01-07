@@ -153,7 +153,7 @@ class Txt2wordcloud():
                break
         fig, ax = plt.subplots(figsize=(6,8))
         ax.barh(range(len(counts)), list(counts.values()), align='center')
-        ax.set_title(f'Best {showing_words} in {len(countedwords)} words')
+        ax.set_title(f'Best {showing_words} in {len(countedwords)} noun words')
         ax.invert_yaxis()
         ax.set_yticks(range(len(counts))) 
         ax.set_yticklabels(counts.keys())#([word[:3] for word in counts.keys()])
